@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 export default function page() {
@@ -10,25 +11,14 @@ export default function page() {
     const [publishDate, setPublishDate] = useState("")
     const [genre, setGenre] = useState("")
     const [visibility, setVisibility] = useState("")
-    const [uploadedBook, setUploadedBook] = useState(null)
-    const [uploadedCoverImage, setUploadedCoverImage] = useState(null)
 
-    const handleBook = (e) => {
-        const selectedFile = e.target.files[0]["name"];
-        setUploadedBook(selectedFile);
-        console.log(selectedFile);
-      };
-
-      const handleCover = (e) => {
-        const selectedFile = e.target.files[0]["name"];
-        setUploadedCoverImage(selectedFile);
-        console.log(selectedFile);
-      };
     
       const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const router = useRouter()
     
-        if (title && desc && authorName && authorBio && publishDate && genre && visibility && uploadedBook && uploadedCoverImage) {
+        if (title && desc && authorName && authorBio && publishDate && genre && visibility) {
           const formData = {
             "title": title,
             "description": desc,
@@ -37,22 +27,24 @@ export default function page() {
             "publish_date": publishDate,
             "genre": genre,
             "privacy": visibility,
-            "uploaded_book": uploadedBook,
-            "uploaded_cover_image": uploadedCoverImage
           }
+
+          const token = localStorage.getItem("token");
     
           try {
-            const response = await fetch('http://localhost:9000/v1/api/books', {
+            const response = await fetch('http://localhost:8000/v1/api/books', {
               method: "POST",
-              body: JSON.stringify(formData),
               headers: {
-              "Content-Type": "application/x-www-form-urlencoded"
-          }
+              "Content-Type": "application/json",
+              "Cookie": `${token}`,
+              },
+              body: JSON.stringify(formData),
+              credentials: "include"
             });
     
             if (response.ok) {
               console.log('Book created successfully.');
-              // Handle the response as needed.
+              router.push("/books")
             } else {
               console.error('Failed to create book.');
             }
@@ -144,24 +136,6 @@ export default function page() {
               <option value="true">true</option>
               <option value="false">false</option>
             </select>
-          </fieldset>
-          <fieldset>
-            <label htmlFor="book-url">Upload Book: </label>
-            <input
-              type="file"
-              onChange={handleBook}
-              name="file"
-              id="book-url"
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor="cover-url">Upload Cover Image: </label>
-            <input
-              type="file"
-              onChange={handleCover}
-              name="file"
-              id="cover-url"
-            />
           </fieldset>
           <button type='submit' onClick={handleSubmit}>submit</button>
         </form>
