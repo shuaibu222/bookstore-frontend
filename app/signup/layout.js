@@ -7,6 +7,6 @@ export const metadata = {
 
 export default function SignupLayout({ children }) {
   return (
-      <main className="grid place-content-center min-h-screen">{children}</main>
+      <main className="grid min-h-screen">{children}</main>
   )
 }

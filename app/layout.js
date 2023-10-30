@@ -1,9 +1,9 @@
 import Nav from './components/Nav'
 import { AppWrapper } from './components/States'
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const poppins = Poppins({ subsets: ['devanagari'], weight: '400' })
 
 export const metadata = {
   title: 'Create Next App',
@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${poppins.className} bg-black text-white`}>
         <AppWrapper>
         <Nav />
         {children}

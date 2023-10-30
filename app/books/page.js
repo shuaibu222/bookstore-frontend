@@ -68,17 +68,20 @@ export default function page() {
   
 
   return (
-    <main>
+    <main className="flex flex-col gap-3 mt-8">
       {bookIsNull && isAuthenticated ? books.map((book) => {
         return (
-          <div key={book._id}>
-            <h1>{book.title}</h1>
-            <p>{book.description}</p>
-            <p>{book.publish_date}</p>
-            <button onClick={() => handleDelete(book._id)}>delete</button>
+          <div key={book._id} className="px-5 py-4 flex justify-between h-24 border-white border-2 rounded-lg hover:bg-orange-500 hover:transition-all hover:duration-100 hover:ease-in-out cursor-pointer hover:text-white">
+            <div className="flex flex-col justify-between">
+              <h1>{book.title}</h1>
+              <p>{book.author_name}</p>
+            </div>
+            <div>
+              <button className="px-3 py-1 border-black border-2 bg-red-500 rounded-md" onClick={() => handleDelete(book._id)}>delete</button>
+            </div>
           </div>
         )
-      }) : <h1>No book uploaded yet or You didn't login.</h1>}
+      }) : <h1 className="text-4xl self-center">No book uploaded yet, or not authorized.</h1>}
     </main>
   )
 }

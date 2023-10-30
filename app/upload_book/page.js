@@ -1,7 +1,8 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { useAppContext } from '../components/States'
 
 export default function page() {
     const [title, setTitle] = useState("")
@@ -12,12 +13,12 @@ export default function page() {
     const [genre, setGenre] = useState("")
     const [visibility, setVisibility] = useState("")
 
+    const {isAuthenticated} = useAppContext()
+    const router = useRouter()
     
       const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const router = useRouter()
-    
         if (title && desc && authorName && authorBio && publishDate && genre && visibility) {
           const formData = {
             "title": title,
@@ -56,64 +57,71 @@ export default function page() {
 
 
   return (
-    <section>
+    <div className='flex flex-col mt-8'>
+    {isAuthenticated ? <section className='flex min-h-screen flex-col items-center p-24 max-w-7xl mx-auto my-0 gap-9'>
+        <h1 className='text-4xl'>Upload Book</h1>
         <form className="flex flex-col gap-4" >
-          <fieldset>
+          <fieldset className='grid border-none gap-2'>
             <label htmlFor="title">Title: </label>
             <input
               type="text"
+              className='w-full p-3 bg-black outline-none border-white border-2 rounded-md'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               name="text"
               id="title"
             />
           </fieldset>
-          <fieldset>
+          <fieldset className='grid border-none gap-2'>
             <label htmlFor="title">desc: </label>
             <input
               type="text"
+              className='w-full p-3 bg-black outline-none border-white border-2 rounded-md'
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
               name="text"
               id="title"
             />
           </fieldset>
-          <fieldset>
+          <fieldset className='grid border-none gap-2'>
             <label htmlFor="link">Author Name: </label>
             <input
               type="text"
+              className='w-full p-3 bg-black outline-none border-white border-2 rounded-md'
               name="text"
               id="name"
               value={authorName}
               onChange={(e) => setAuthorName(e.target.value)}
             />
           </fieldset>
-          <fieldset>
+          <fieldset className='grid border-none gap-2'>
             <label htmlFor="link">Bio: </label>
             <input
               type="text"
+              className='w-full p-3 bg-black outline-none border-white border-2 rounded-md'
               name="text"
               id="link"
               value={authorBio}
               onChange={(e) => setAuthorBio(e.target.value)}
             />
           </fieldset>
-          <fieldset>
+          <fieldset className='grid border-none gap-2'>
             <label htmlFor="link">Publish Date: </label>
             <input
               type="text"
+              className='w-full p-3 bg-black outline-none border-white border-2 rounded-md'
               name="text"
               id="link"
               value={publishDate}
               onChange={(e) => setPublishDate(e.target.value)}
             />
           </fieldset>
-          <fieldset>
+          <fieldset className='grid border-none gap-2'>
             <label htmlFor="link">Genre: </label>
             <select
               name="category"
               id="category"
-              className="category"
+              className='w-full p-3 bg-black outline-none border-white border-2 rounded-md'
               value={genre}
               onChange={(e) => setGenre(e.target.value)}
             >
@@ -123,12 +131,12 @@ export default function page() {
               <option value="AI">AI</option>
             </select>
           </fieldset>
-          <fieldset>
+          <fieldset className='grid border-none gap-2'>
             <label htmlFor="link">Visibility: </label>
             <select
               name="category"
               id="category"
-              className="category"
+              className='w-full p-3 bg-black outline-none border-white border-2 rounded-md'
               value={visibility}
               onChange={(e) => setVisibility(e.target.value)}
             >
@@ -137,8 +145,9 @@ export default function page() {
               <option value="false">false</option>
             </select>
           </fieldset>
-          <button type='submit' onClick={handleSubmit}>submit</button>
         </form>
-    </section>
+        <button type='submit' className='border-none p-3 bg-orange-500 cursor-pointer rounded-md' onClick={handleSubmit}>create book</button>
+    </section> : <h1 className='text-4xl self-center'>401 Unauthorized!</h1> }
+    </div>
   )
 }

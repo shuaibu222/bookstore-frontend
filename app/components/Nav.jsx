@@ -22,10 +22,7 @@ export default function Nav() {
           credentials: "include"
         });
     
-        const data = await response.json();
-    
         if (response.status === 200) {
-          console.log(data);
           localStorage.removeItem("token")
           router.push('/');
           setIsAuthenticated(false)
@@ -34,18 +31,18 @@ export default function Nav() {
         console.error(error);
       }};
   return (
-    <nav className='flex max-w-7xl place-content-center gap-6 mt-4'>
-        <Link href={"/public_books"}>Public Books</Link>
+    <nav className='flex max-w-7xl mx-auto mb-0 place-content-center gap-5 mt-4'>
+        <Link href={"/public_books"} className='border-b-2 text-sm border-b-transparent px-1 py-3 hover:border-orange-500 hover:text-orange-500 hover:transition-all hover:duration-150 hover:ease-in-out'>Public Books</Link>
         {isAuthenticated &&
-        <Link href={"/books"}>Private Books</Link>}
+        <Link href={"/books"} className='border-b-2 text-sm border-b-transparent px-1 py-3 hover:border-orange-500 hover:text-orange-500 hover:transition-all hover:duration-150 hover:ease-in-out'>Private Books</Link>}
         {isAuthenticated &&
-        <Link href={"/upload_book"}>Upload Book</Link>}
+        <Link href={"/upload_book"} className='border-b-2 text-sm border-b-transparent px-1 py-3 hover:border-orange-500 hover:text-orange-500 hover:transition-all hover:duration-150 hover:ease-in-out'>Upload Book</Link>}
         {!isAuthenticated &&
-        <Link href={"/"}>Login</Link>}
+        <Link href={"/"} className='border-b-2 text-sm border-b-transparent px-1 py-3 hover:border-orange-500 hover:text-orange-500 hover:transition-all hover:duration-150 hover:ease-in-out'>Login</Link>}
         {!isAuthenticated &&
-        <Link href={"/signup"}>Signup</Link>}
+        <Link href={"/signup"} className='border-b-2 text-sm border-b-transparent px-1 py-3 hover:border-orange-500 hover:text-orange-500 hover:transition-all hover:duration-150 hover:ease-in-out'>Signup</Link>}
         {isAuthenticated &&
-        <Link href={"/"} onClick={handleLogout}>Logout</Link>}
+        <Link href={"/"} onClick={handleLogout} className='border-b-2 text-sm border-b-transparent px-1 py-3 hover:border-orange-500 hover:text-orange-500 hover:transition-all hover:duration-150 hover:ease-in-out'>Logout</Link>}
     </nav>
   )
 }

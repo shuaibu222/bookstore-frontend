@@ -59,7 +59,7 @@ export default function Home() {
     
 
     if (response.status === 200) {
-      console.log(localStorage.setItem("token", data.token))
+      localStorage.setItem("token", data.token)
       router.push('/books');
       setIsAuthenticated(true)
   
@@ -69,13 +69,11 @@ export default function Home() {
   }};
 
 
-
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>This is a test form</h1>
-      <form className="flex flex-col gap-4">
-          <fieldset>
+    <main className="flex min-h-screen flex-col p-24 max-w-7xl mx-auto my-0 gap-9">
+      <h1 className='text-4xl self-center'>Login</h1>
+      <form className="grid place-content-center gap-4">
+          <fieldset className='grid border-none gap-2'>
             <label htmlFor="username">username: </label>
             <input
               type="text"
@@ -83,9 +81,10 @@ export default function Home() {
               onChange={(e) => setUsername(e.target.value)}
               name="text"
               id="username"
+              className='w-full p-3 bg-black outline-none border-white border-2 rounded-md'
             />
           </fieldset>
-          <fieldset>
+          <fieldset className='grid border-none gap-2' >
             <label htmlFor="password">password: </label>
             <input
               type="text"
@@ -93,10 +92,11 @@ export default function Home() {
               onChange={(e) => setPassword(e.target.value)}
               name="text"
               id="password"
+              className='w-full p-3 bg-black outline-none border-white border-2 rounded-md'
             />
           </fieldset>
-          <button type='submit' onClick={handleLogin}>Login</button>
-          </form>
+        </form>
+        <button type='submit' className='border-none p-3 bg-orange-500 cursor-pointer rounded-md self-center' onClick={handleLogin}>Login</button>
     </main>
   )
 }

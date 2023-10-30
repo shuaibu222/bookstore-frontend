@@ -38,16 +38,15 @@ export default function page() {
   
 
   return (
-    <main>
-      {bookIsNull ? books.map((book) => {
+    <main className="flex flex-col gap-3 mt-8">
+      {bookIsNull  ? books.map((book) => {
         return (
-          <div key={book._id}>
-            <h1>{book.title}</h1>
-            <p>{book.description}</p>
-            <p>{book.publish_date}</p>
+          <div key={book._id} className="px-5 py-4 flex flex-col justify-between h-24 border-white border-2 rounded-lg hover:bg-orange-500 hover:transition-all hover:duration-100 hover:ease-in-out cursor-pointer hover:text-white">
+              <h1>{book.title}</h1>
+              <p>{book.author_name}</p>
           </div>
         )
-      }) : <h1>No book uploaded yet.</h1>}
+      }) : <h1 className="text-4xl">No book uploaded yet, or not authorized.</h1>}
     </main>
   )
 }

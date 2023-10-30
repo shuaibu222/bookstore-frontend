@@ -7,6 +7,6 @@ export const metadata = {
 
 export default function BookLayout({ children }) {
   return (
-      <main className="grid place-content-center min-h-screen">{children}</main>
+      <main className="grid max-w-5xl mx-auto my-0 min-h-screen">{children}</main>
   )
 }
