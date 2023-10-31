@@ -67,14 +67,25 @@ export default function page() {
   }, [isDeleted]);
   
 
+  // <div key={book._id} className="px-3 py-2 flex flex-col justify-between h-28 border-white border-2 rounded-lg hover:bg-orange-500 hover:transition-all hover:duration-100 hover:ease-in-out cursor-pointer hover:text-white">
+  //             <h1 className="text-2xl">{book.title}</h1>
+  //             <div className="text-sm">
+  //               <p>Author: {book.author_name}</p>
+  //               <p>Published By: {book.user.username}</p>
+  //             </div>
+  //         </div>
+
   return (
     <main className="flex flex-col gap-3 mt-8">
       {bookIsNull && isAuthenticated ? books.map((book) => {
         return (
-          <div key={book._id} className="px-5 py-4 flex justify-between h-24 border-white border-2 rounded-lg hover:bg-orange-500 hover:transition-all hover:duration-100 hover:ease-in-out cursor-pointer hover:text-white">
+          <div key={book._id} className="px-3 py-2 flex justify-between h-28 border-white border-2 rounded-lg hover:bg-orange-500 hover:transition-all hover:duration-100 hover:ease-in-out cursor-pointer hover:text-white">
             <div className="flex flex-col justify-between">
-              <h1>{book.title}</h1>
-              <p>{book.author_name}</p>
+            <h1 className="text-2xl">{book.title}</h1>
+              <div className="text-sm">
+                <p>Author: {book.author_name}</p>
+                <p>Published By: {book.user.username}</p>
+              </div>
             </div>
             <div>
               <button className="px-3 py-1 border-black border-2 bg-red-500 rounded-md" onClick={() => handleDelete(book._id)}>delete</button>
