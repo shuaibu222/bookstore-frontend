@@ -8,6 +8,7 @@ import { useAppContext } from './components/States'
 export default function Home() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [isCorrect, setIsCorrect] = useState(false)
   const {setIsAuthenticated} = useAppContext()
   const router = useRouter()
 
@@ -62,15 +63,18 @@ export default function Home() {
       localStorage.setItem("token", data.token)
       router.push('/books');
       setIsAuthenticated(true)
+      setIsCorrect(false)
   
     }
   } catch (error) {
     console.error(error);
+    setIsCorrect(true)
   }};
 
 
   return (
     <main className="flex min-h-screen flex-col p-24 max-w-7xl mx-auto my-0 gap-9">
+      {isCorrect && <h1 className='p-4 bg-white text-orange-600 rounded-lg mb-4 mt-4 self-center'>username or password is incorrect!</h1>}
       <h1 className='text-4xl self-center'>Login</h1>
       <form className="grid place-content-center gap-4">
           <fieldset className='grid border-none gap-2'>
